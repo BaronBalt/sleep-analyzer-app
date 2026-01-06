@@ -6,6 +6,10 @@
 
 package hu.vmiklos.plees_tracker
 
+import hu.vmiklos.plees_tracker.ui.stats.cumulativeAverage
+import hu.vmiklos.plees_tracker.ui.stats.cumulativeSum
+import hu.vmiklos.plees_tracker.ui.stats.cumulativeVariance
+import hu.vmiklos.plees_tracker.ui.stats.stripTime
 import java.util.Calendar
 import org.junit.Assert.assertEquals
 import org.junit.Test

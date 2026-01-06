@@ -6,6 +6,7 @@
 
 package hu.vmiklos.plees_tracker
 
+import hu.vmiklos.plees_tracker.domain.model.Sleep
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 

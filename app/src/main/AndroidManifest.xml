@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".ui.main.MainActivity"
             android:exported="true"
             android:launchMode="singleTop">
             <intent-filter>
@@ -24,31 +24,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SleepActivity">
+        <activity android:name=".ui.sleep.SleepActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
-        <activity android:name=".StatsActivity">
+        <activity android:name=".ui.stats.StatsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
-        <activity android:name=".GraphsActivity">
+        <activity android:name=".ui.stats.GraphsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
         </activity>
-        <activity android:name=".PreferencesActivity" />
+        <activity android:name=".ui.preferences.PreferencesActivity" />
         <service
-            android:name=".MainService"
+            android:name=".system.service.MainService"
             android:foregroundServiceType="specialUse">
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Used to notify the user that tracking is in progress"/>
         </service>
         <service
-            android:name=".TileService"
+            android:name=".system.service.TileService"
             android:icon="@drawable/ic_launcher_foreground"
             android:label="@string/widget_start_stop"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
@@ -61,7 +61,7 @@
         <receiver
             android:icon="@mipmap/ic_launcher"
             android:label="@string/widget_start_stop"
-            android:name=".ToggleWidget"
+            android:name=".widget.ToggleWidget"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -70,7 +70,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_info_toggle" />
         </receiver>
-        <receiver android:name=".ReminderReceiver" />
+        <receiver android:name=".system.reciever.ReminderReceiver" />
 
     </application>
 

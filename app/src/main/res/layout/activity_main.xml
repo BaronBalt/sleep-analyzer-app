@@ -69,7 +69,7 @@
 
                 <androidx.fragment.app.FragmentContainerView
                     android:id="@+id/dashboard_body"
-                    android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                    android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
                     android:layout_below="@id/dashboard_header"

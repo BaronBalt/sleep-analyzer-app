@@ -11,6 +11,8 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import hu.vmiklos.plees_tracker.domain.model.DataModel
+import hu.vmiklos.plees_tracker.domain.model.Sleep
 import java.util.Calendar
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

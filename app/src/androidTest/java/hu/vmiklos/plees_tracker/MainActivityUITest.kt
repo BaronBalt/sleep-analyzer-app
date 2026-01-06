@@ -10,6 +10,8 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.uiautomator.Direction
 import androidx.test.uiautomator.StaleObjectException
+import hu.vmiklos.plees_tracker.domain.model.DataModel
+import hu.vmiklos.plees_tracker.ui.main.MainActivity
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Rule

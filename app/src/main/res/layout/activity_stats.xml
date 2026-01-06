@@ -35,7 +35,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/last_week_body"
-                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:orientation="horizontal"
@@ -57,7 +57,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/last_two_weeks_body"
-                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:orientation="horizontal"
@@ -79,7 +79,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/last_month_body"
-                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:orientation="horizontal"
@@ -101,7 +101,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/last_year_body"
-                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:orientation="horizontal"
@@ -123,7 +123,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/all_time_body"
-                android:name="hu.vmiklos.plees_tracker.StatsFragment"
+                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
                 android:paddingBottom="10dp"
