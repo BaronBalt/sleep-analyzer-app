@@ -27,6 +27,7 @@ import hu.vmiklos.plees_tracker.domain.model.Sleep
 import hu.vmiklos.plees_tracker.ui.sleep.callback.SleepCommentCallback
 import hu.vmiklos.plees_tracker.ui.sleep.callback.SleepRateCallback
 import hu.vmiklos.plees_tracker.ui.util.TimeFormatter
+import hu.vmiklos.plees_tracker.ui.util.WindowInsetsUtil.handleWindowInsets
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
@@ -57,7 +58,24 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
         viewModel = ViewModelProvider(this, factory)[SleepViewModel::class.java]
 
         setContentView(R.layout.activity_sleep)
-        // ...
+
+        handleWindowInsets(this)
+
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val startDate = findViewById<TextView>(R.id.sleep_start_date)
+        startDate.setOnClickListener(this)
+        val startTime = findViewById<TextView>(R.id.sleep_start_time)
+        startTime.setOnClickListener(this)
+        val stopDate = findViewById<TextView>(R.id.sleep_stop_date)
+        stopDate.setOnClickListener(this)
+        val stopTime = findViewById<TextView>(R.id.sleep_stop_time)
+        stopTime.setOnClickListener(this)
+
+        sid = intent.extras?.getInt("sid")
+            ?: error("SleepActivity started without sid")
+
+        title = String.format(getString(R.string.sleep_id), sid.toString())
 
         // Instead of viewModel.showSleep(this, sid), we fetch and display
         lifecycleScope.launch {

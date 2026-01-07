@@ -238,11 +238,12 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
                 val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
                 durationStat?.text = statsUseCases.averageDuration(sleeps).toString()
                 val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
-                durationDailyStat?.text = statsUseCases.dailyDuration(
+                val dailyDurationSeconds = statsUseCases.dailyDuration(
                     sleeps,
                     preferencesRepository.ignoreEmptyDays(),
                     preferencesRepository.statFunction()
-                ).toString()
+                )
+                durationDailyStat?.text = formatter.formatDuration(dailyDurationSeconds, preferencesRepository.compactView())
                 sleepsAdapter.data = sleeps
 
                 // Set up placeholder text if there are no sleeps.
