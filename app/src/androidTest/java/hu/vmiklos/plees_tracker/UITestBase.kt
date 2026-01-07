@@ -11,10 +11,6 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
-import hu.vmiklos.plees_tracker.domain.model.DataModel
-import hu.vmiklos.plees_tracker.domain.model.Sleep
-import java.util.Calendar
-import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 
 open class UITestBase {
@@ -39,25 +35,6 @@ open class UITestBase {
         device.wait(Until.findObject(By.res(pkg, resourceId).text(textValue)), timeout)
         val obj = device.findObject(By.res(pkg, resourceId))
         assertEquals(textValue, obj.text)
-    }
-
-    protected fun resetDatabase() {
-        DataModel.database.clearAllTables()
-        device.waitForIdle()
-    }
-
-    protected fun createSleep() {
-        val sleep = Sleep()
-        val start = Calendar.getInstance()
-        start.set(Calendar.HOUR_OF_DAY, 9)
-        sleep.start = start.timeInMillis
-        val stop = Calendar.getInstance()
-        start.set(Calendar.HOUR_OF_DAY, 23)
-        sleep.stop = stop.timeInMillis
-        runBlocking {
-            DataModel.database.sleepDao().insert(sleep)
-        }
-        device.waitForIdle()
     }
 }
 
