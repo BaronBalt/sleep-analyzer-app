@@ -7,7 +7,6 @@ import android.os.Build
 import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.preference.PreferenceManager
 import hu.vmiklos.plees_tracker.data.repository.SleepRepository
 import hu.vmiklos.plees_tracker.domain.model.DataModel
@@ -17,7 +16,6 @@ import hu.vmiklos.plees_tracker.ui.main.MainActivity
  * Provides a quick settings tile that opens the main activity and immediately toggles between
  * started/stopped sleep tracking.
  */
-@RequiresApi(api = Build.VERSION_CODES.N)
 class TileService(
     private val sleepRepository: SleepRepository
 ) : TileService() {

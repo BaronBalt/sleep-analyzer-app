@@ -9,7 +9,6 @@ package hu.vmiklos.plees_tracker.domain.model
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import hu.vmiklos.plees_tracker.data.local.AppDatabase
-import hu.vmiklos.plees_tracker.ui.preferences.PreferencesActivity
 import java.util.Date
 
 /**
@@ -19,8 +18,6 @@ import java.util.Date
 object DataModel {
 
     lateinit var preferences: SharedPreferences
-
-    var preferencesActivity: PreferencesActivity? = null
 
     var start: Date? = null
         set(start) {

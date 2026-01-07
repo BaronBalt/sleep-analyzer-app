@@ -17,7 +17,7 @@ android {
     compileSdk 36
 
     defaultConfig {
-        applicationId "hu.vmiklos.plees_tracker"
+        applicationId 'com.example.sleep_analyzer'
         minSdkVersion 24
         targetSdkVersion 36
         versionCode 64

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,17 +10,18 @@
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?android:colorBackground">
-    </com.google.android.material.appbar.AppBarLayout>
+        android:background="?android:colorBackground" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:paddingBottom="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
+            <!-- Last Week -->
             <TextView
                 android:id="@+id/last_week_header"
                 android:layout_width="wrap_content"
@@ -33,103 +35,621 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.fragment.app.FragmentContainerView
+            <LinearLayout
                 android:id="@+id/last_week_body"
-                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_week_header" />
+                app:layout_constraintTop_toBottomOf="@id/last_week_header">
 
+                <!-- Sleeps Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_nights"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_week_sleeps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="87" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sleeps"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Average Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_average"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_week_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="12:40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Daily Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_daily"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_week_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="8h" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Last Two Weeks -->
             <TextView
                 android:id="@+id/last_two_weeks_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:text="@string/last_two_weeks"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_week_body" />
+                app:layout_constraintTop_toBottomOf="@id/last_week_body" />
 
-            <androidx.fragment.app.FragmentContainerView
+            <LinearLayout
                 android:id="@+id/last_two_weeks_body"
-                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false" android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_header" />
+                app:layout_constraintTop_toBottomOf="@id/last_two_weeks_header">
+                <!-- Sleeps Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_nights"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_two_week_sleeps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="87" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sleeps"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Average Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_average"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_two_week_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="12:40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Daily Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_daily"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_two_week_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="8h" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Last Month -->
             <TextView
                 android:id="@+id/last_month_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:text="@string/last_month"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_two_weeks_body" />
+                app:layout_constraintTop_toBottomOf="@id/last_two_weeks_body" />
 
-            <androidx.fragment.app.FragmentContainerView
+            <LinearLayout
                 android:id="@+id/last_month_body"
-                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_month_header" />
+                app:layout_constraintTop_toBottomOf="@id/last_month_header">
+                <!-- Sleeps Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_nights"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_month_sleeps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="87" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sleeps"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Average Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_average"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_month_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="12:40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Daily Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_daily"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_month_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="8h" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Last Year -->
             <TextView
                 android:id="@+id/last_year_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:text="@string/last_year"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_month_body" />
+                app:layout_constraintTop_toBottomOf="@id/last_month_body" />
 
-            <androidx.fragment.app.FragmentContainerView
+            <LinearLayout
                 android:id="@+id/last_year_body"
-                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:baselineAligned="false" android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_year_header" />
+                app:layout_constraintTop_toBottomOf="@id/last_year_header">
+                <!-- Sleeps Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_nights"
+                    android:orientation="vertical"
+                    android:padding="8dp">
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_year_sleeps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="87" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sleeps"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Average Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_average"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_year_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="12:40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Daily Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_daily"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/last_year_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="8h" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- All Time -->
             <TextView
                 android:id="@+id/all_time_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:textStyle="bold"
                 android:text="@string/all_time"
                 android:textColor="@color/textColor"
                 android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/last_year_body" />
+                app:layout_constraintTop_toBottomOf="@id/last_year_body" />
 
-            <androidx.fragment.app.FragmentContainerView
+            <LinearLayout
                 android:id="@+id/all_time_body"
-                android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                 android:layout_width="match_parent"
                 android:layout_height="130dp"
-                android:paddingBottom="10dp"
-                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:baselineAligned="false" android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/all_time_header" />
+                app:layout_constraintTop_toBottomOf="@id/all_time_header">
+                <!-- Sleeps Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_nights"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/all_time_sleeps"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="87" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sleeps"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Average Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_average"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/all_time_average"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="12:40" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+                <!-- Daily Card -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:background="@color/dash_daily"
+                    android:orientation="vertical"
+                    android:padding="8dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp" />
+
+                    <TextView
+                        android:id="@+id/all_time_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="24sp"
+                        tools:text="8h" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_average_string"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="16sp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+            </LinearLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,6 +1,5 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" translatable="false">Plees Tracker</string>
     <string name="start">Spustit</string>
     <string name="stop">Zastavit</string>
     <string name="start_again">Spustit znovu</string>
@@ -27,7 +26,6 @@
     <string name="about_toolbar">O aplikaci</string>
     <string name="app_description">Jednoduchý sledovač spánku pro Android.</string>
     <string name="sleep_id">Spánek #%s</string>
-    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
     <string name="documentation">Dokumentace</string>
     <string name="average_string">Průměrný</string>
     <string name="daily_average_string">Denní</string>
@@ -53,7 +51,6 @@
         <item quantity="other">Importováno %d položek</item>
     </plurals>
     <string name="exported_event_description">Exportováno z Plees Tracker</string>
-    <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
     <plurals name="exported_items">
         <item quantity="one">Exportována %d položka</item>
         <item quantity="few">Exportovány %d položky</item>

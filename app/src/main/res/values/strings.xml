@@ -1,6 +1,6 @@
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name" translatable="false">Plees Tracker</string>
+    <string name="app_name" translatable="false">Sleep Analyzer</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="start_again">Start again</string>
@@ -25,9 +25,9 @@
     <string name="undo">Undo</string>
     <string name="about_item">About</string>
     <string name="about_toolbar">About</string>
-    <string name="app_description">A simple sleep tracker for Android.</string>
+    <string name="app_description">A simple sleep analyzer for Android.</string>
     <string name="sleep_id">Sleep #%s</string>
-    <string name="website_link" translatable="false">https://vmiklos.hu/plees-tracker</string>
+    <string name="website_link" translatable="false">https://github.com/BaronBalt/sleep-analyzer-app</string>
     <string name="documentation">Documentation</string>
     <string name="average_string">Average</string>
     <string name="daily_average_string">Daily</string>
@@ -51,7 +51,7 @@
       <item quantity="other">Imported %d items</item>
     </plurals>
     <string name="exported_event_description">Exported from Plees Tracker</string>
-    <string name="exported_event_title" translatable="false">Plees Tracker Sleep</string>
+    <string name="exported_event_title" translatable="false">Sleep Analyzer App</string>
     <plurals name="exported_items">
         <item quantity="one">Exported %d item</item>
         <item quantity="other">Exported %d items</item>

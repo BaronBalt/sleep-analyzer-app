@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name='Plees Tracker'
+rootProject.name='Sleep Analyzer'

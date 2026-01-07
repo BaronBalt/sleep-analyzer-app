@@ -2,24 +2,26 @@ package hu.vmiklos.plees_tracker.ui.preferences
 
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import hu.vmiklos.plees_tracker.domain.model.DataModel
 import hu.vmiklos.plees_tracker.data.local.Preferences
 import hu.vmiklos.plees_tracker.R
 import hu.vmiklos.plees_tracker.data.local.SharedPreferencesChangeListener
 import hu.vmiklos.plees_tracker.data.repository.PreferencesRepository
 import hu.vmiklos.plees_tracker.ui.util.WindowInsetsUtil.handleWindowInsets
 
-class PreferencesActivity(
-    private val preferencesRepository: PreferencesRepository
-): AppCompatActivity() {
+class PreferencesActivity: AppCompatActivity() {
     private lateinit var listener: SharedPreferencesChangeListener
+
+    private lateinit var preferences: SharedPreferences
+    private lateinit var preferencesRepository: PreferencesRepository
 
     companion object {
         private const val TAG = "PreferencesActivity"
@@ -28,30 +30,29 @@ class PreferencesActivity(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        preferencesRepository = PreferencesRepository(preferences)
+
         listener = SharedPreferencesChangeListener(this)
+        preferences.registerOnSharedPreferenceChangeListener(listener)
 
-        prefs.registerOnSharedPreferenceChangeListener(listener)
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.root, Preferences(
-                preferencesRepository = preferencesRepository
-            ))
-            .commit()
         setContentView(R.layout.activity_settings)
-
+        title = String.format(getString(R.string.settings))
         handleWindowInsets(this)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        DataModel.preferencesActivity = this
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.root, Preferences(preferencesRepository))
+                .commit()
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         prefs.unregisterOnSharedPreferenceChangeListener(listener)
-
-        DataModel.preferencesActivity = null
     }
 
     private val backupActivityResult =
@@ -65,7 +66,7 @@ class PreferencesActivity(
                         uri,
                         flags
                     )
-                    DataModel.preferences.edit {
+                    preferences.edit {
                         putString("auto_backup_path", uri.toString())
                     }
                     success = true
@@ -73,7 +74,7 @@ class PreferencesActivity(
 
                 if (!success) {
                     // Disable the bool setting when the user picked no folder.
-                    DataModel.preferences.edit {
+                    preferences.edit {
                         putBoolean("auto_backup", false)
                     }
                 }
@@ -95,7 +96,6 @@ class PreferencesActivity(
 
     // Show a dialog to set bedtime and wakeup times (using two TimePickerDialogs sequentially)
     fun showBedtimeDialog() {
-        val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         // Get current values or use defaults (22:00 for bedtime, 07:00 for wakeup)
         val currentBedHour = preferencesRepository.getBedtimeHour()
         val currentBedMinute = preferencesRepository.getBedtimeMinute()
@@ -132,5 +132,15 @@ class PreferencesActivity(
             currentBedMinute,
             true
         ).show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

@@ -104,7 +104,7 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
                     updateView()
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: importData() failed")
+                Log.e(TAG, "onActivityResult: importData() failed, exception: $e")
             }
         }
 
@@ -115,7 +115,7 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
                     viewModel.exportDataToFile(contentResolver, uri)
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "onActivityResult: exportData() failed")
+                Log.e(TAG, "onActivityResult: exportData() failed, exception: $e")
             }
         }
 
@@ -191,34 +191,18 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
             this
         ) { setDashboardText(it ?: "0") }
 
-        // Hide plain avg and avg(daily sum) if requested:
-        preferences.liveDataBoolean("show_average_sleep_durations", false).observe(
-            this
-        ) {
-            it?.let {
-                val fragments = supportFragmentManager
-                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
-                val layout = stats?.findViewById<LinearLayout>(R.id.fragment_stats_average_layout)
-                if (it) {
-                    layout?.visibility = View.VISIBLE
-                } else {
-                    layout?.visibility = View.GONE
-                }
-            }
+        // Show/hide total sleeps card (if needed)
+        preferences.liveDataBoolean("show_average_sleep_durations", false).observe(this) { show ->
+            val sleepsCard = findViewById<LinearLayout>(R.id.dashboard_body)
+                .getChildAt(0) as LinearLayout // first child is "Sleeps Card"
+            sleepsCard.visibility = if (show == true) View.VISIBLE else View.GONE
         }
-        preferences.liveDataBoolean("show_average_daily_sums", true).observe(
-            this
-        ) {
-            it?.let {
-                val fragments = supportFragmentManager
-                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
-                val layout = stats?.findViewById<LinearLayout>(R.id.fragment_stats_daily_layout)
-                if (it) {
-                    layout?.visibility = View.VISIBLE
-                } else {
-                    layout?.visibility = View.GONE
-                }
-            }
+
+        // Show/hide daily average card
+        preferences.liveDataBoolean("show_average_daily_sums", true).observe(this) { show ->
+            val dailyCard = findViewById<LinearLayout>(R.id.dashboard_body)
+                .getChildAt(1) as LinearLayout // second child is "Daily Card"
+            dailyCard.visibility = if (show == true) View.VISIBLE else View.GONE
         }
 
         preferencesRepository.startTimeStampLive().observe(this) {
@@ -227,26 +211,21 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
 
         val sleepsAdapter = SleepsAdapter(preferences, preferencesRepository, formatter)
         val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
-        viewModel.durationSleepsLive.observe(
-            this
-        ) { sleeps ->
+        viewModel.durationSleepsLive.observe(this) { sleeps ->
             if (sleeps != null) {
-                val fragments = supportFragmentManager
-                val stats = fragments.findFragmentById(R.id.dashboard_body)?.view
-                val countStat = stats?.findViewById<TextView>(R.id.fragment_stats_sleeps)
-                countStat?.text = statsUseCases.countSleeps(sleeps).toString()
-                val durationStat = stats?.findViewById<TextView>(R.id.fragment_stats_average)
-                durationStat?.text = statsUseCases.averageDuration(sleeps).toString()
-                val durationDailyStat = stats?.findViewById<TextView>(R.id.fragment_stats_daily)
+                val dashboardSleeps = findViewById<TextView>(R.id.dashboard_sleeps)
+                val dashboardDaily = findViewById<TextView>(R.id.dashboard_daily)
+
+                dashboardSleeps.text = statsUseCases.countSleeps(sleeps).toString()
+
                 val dailyDurationSeconds = statsUseCases.dailyDuration(
                     sleeps,
                     preferencesRepository.ignoreEmptyDays(),
                     preferencesRepository.statFunction()
                 )
-                durationDailyStat?.text = formatter.formatDuration(dailyDurationSeconds, preferencesRepository.compactView())
-                sleepsAdapter.data = sleeps
+                dashboardDaily.text = formatter.formatDuration(dailyDurationSeconds, preferencesRepository.compactView())
 
-                // Set up placeholder text if there are no sleeps.
+                val recyclerView = findViewById<RecyclerView>(R.id.sleeps)
                 val noSleepsView = findViewById<TextView>(R.id.no_sleeps)
                 if (sleeps.isEmpty()) {
                     recyclerView.visibility = View.GONE
@@ -255,6 +234,9 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
                     recyclerView.visibility = View.VISIBLE
                     noSleepsView.visibility = View.GONE
                 }
+
+                val sleepsAdapter = recyclerView.adapter as SleepsAdapter
+                sleepsAdapter.data = sleeps
             }
         }
 

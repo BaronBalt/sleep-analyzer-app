@@ -10,9 +10,9 @@ import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import hu.vmiklos.plees_tracker.R
 import hu.vmiklos.plees_tracker.data.repository.PreferencesRepository
-import hu.vmiklos.plees_tracker.domain.model.DataModel
 import hu.vmiklos.plees_tracker.ui.main.MainActivity
 import hu.vmiklos.plees_tracker.ui.util.TimeFormatter
+import java.util.Date
 
 /**
  * A foreground service that just keeps the app alive, so the state is not lost
@@ -45,10 +45,10 @@ class MainService(
         )
 
         var contentText = ""
-        DataModel.start?.let { start ->
+        preferencesRepository.getStartTimestamp().let { start ->
             contentText = String.format(
                 getString(R.string.sleeping_since),
-                formatter.formatTimestamp(start, preferencesRepository.compactView())
+                formatter.formatTimestamp(Date(start), preferencesRepository.compactView())
             )
         }
         val notification = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)

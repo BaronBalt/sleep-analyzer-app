@@ -3,19 +3,45 @@ package hu.vmiklos.plees_tracker.ui.stats
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import hu.vmiklos.plees_tracker.R
+import hu.vmiklos.plees_tracker.data.local.AppDatabase
+import hu.vmiklos.plees_tracker.data.repository.PreferencesRepository
+import hu.vmiklos.plees_tracker.data.repository.SleepRepository
+import hu.vmiklos.plees_tracker.domain.usecase.StatsUseCases
+import hu.vmiklos.plees_tracker.ui.util.TimeFormatter
 import hu.vmiklos.plees_tracker.ui.util.WindowInsetsUtil
 
 class StatsActivity : AppCompatActivity() {
 
-    private val viewModel: StatsViewModel by viewModels()
+    private lateinit var viewModel: StatsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_stats)
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+
+        val sleepDao = AppDatabase.getDatabase(applicationContext).sleepDao()
+
+        val preferencesRepository = PreferencesRepository(preferences = prefs)
+        val sleepRepository = SleepRepository(
+            sleepDao = sleepDao,
+            preferencesRepository = preferencesRepository
+        )
+
+        val statsUseCases = StatsUseCases()
+        val formatter = TimeFormatter
+
+        val factory = StatsViewModelFactory(
+            sleepRepository,
+            preferencesRepository,
+            statsUseCases,
+            formatter
+        )
+        viewModel = ViewModelProvider(this, factory)[StatsViewModel::class.java]
 
         WindowInsetsUtil.applyEdgeToEdge(this)
 
@@ -23,45 +49,48 @@ class StatsActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.stats.observe(this) { buckets ->
-            val fragments = supportFragmentManager
-
-            populateFragment(
-                fragments.findFragmentById(R.id.last_week_body),
+            populateStatsBucket(
+                R.id.last_week_sleeps,
+                R.id.last_week_average,
+                R.id.last_week_daily,
                 buckets.lastWeek
             )
-            populateFragment(
-                fragments.findFragmentById(R.id.last_two_weeks_body),
+            populateStatsBucket(
+                R.id.last_two_week_sleeps,
+                R.id.last_two_week_average,
+                R.id.last_two_week_daily,
                 buckets.lastTwoWeeks
             )
-            populateFragment(
-                fragments.findFragmentById(R.id.last_month_body),
+            populateStatsBucket(
+                R.id.last_month_sleeps,
+                R.id.last_month_average,
+                R.id.last_month_daily,
                 buckets.lastMonth
             )
-            populateFragment(
-                fragments.findFragmentById(R.id.last_year_body),
+            populateStatsBucket(
+                R.id.last_year_sleeps,
+                R.id.last_year_average,
+                R.id.last_year_daily,
                 buckets.lastYear
             )
-            populateFragment(
-                fragments.findFragmentById(R.id.all_time_body),
+            populateStatsBucket(
+                R.id.all_time_sleeps,
+                R.id.all_time_average,
+                R.id.all_time_daily,
                 buckets.allTime
             )
         }
     }
 
-    private fun populateFragment(
-        fragment: Fragment?,
+    private fun populateStatsBucket(
+        sleepsId: Int,
+        averageId: Int,
+        dailyId: Int,
         uiModel: StatsUiModel
     ) {
-        val view = fragment?.view ?: return
-
-        view.findViewById<TextView>(R.id.fragment_stats_sleeps)
-            .text = uiModel.sleepCount
-
-        view.findViewById<TextView>(R.id.fragment_stats_average)
-            .text = uiModel.averageDuration
-
-        view.findViewById<TextView>(R.id.fragment_stats_daily)
-            .text = uiModel.dailyDuration
+        findViewById<TextView>(sleepsId).text = uiModel.sleepCount
+        findViewById<TextView>(averageId).text = uiModel.averageDuration
+        findViewById<TextView>(dailyId).text = uiModel.dailyDuration
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

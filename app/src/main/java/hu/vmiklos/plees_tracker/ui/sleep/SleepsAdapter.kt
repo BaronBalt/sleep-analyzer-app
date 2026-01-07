@@ -113,6 +113,7 @@ class SleepsAdapter(
 
         if (preferences.getBoolean("show_rating", false)) {
             holder.rating.rating = sleep.rating.toFloat()
+            holder.rating.visibility = View.VISIBLE
         } else {
             holder.rating.visibility = View.GONE
         }

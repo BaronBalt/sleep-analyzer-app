@@ -66,17 +66,84 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/status" />
 
-
-                <androidx.fragment.app.FragmentContainerView
+                <LinearLayout
                     android:id="@+id/dashboard_body"
-                    android:name="hu.vmiklos.plees_tracker.ui.stats.StatsFragment"
                     android:layout_width="match_parent"
                     android:layout_height="130dp"
-                    android:layout_below="@id/dashboard_header"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:baselineAligned="false"
                     android:orientation="horizontal"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/dashboard_header"/>
+                    app:layout_constraintTop_toBottomOf="@+id/dashboard_header">
+                    <!-- Sleeps Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="8dp"
+                        android:background="@color/dash_nights"
+                        android:orientation="vertical"
+                        android:padding="8dp">
 
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/dashboard_sleeps"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColor"
+                            android:textSize="24sp"
+                            tools:text="87" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sleeps"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp"
+                            android:paddingVertical="4dp" />
+                    </LinearLayout>
+
+                    <!-- Daily Card -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_margin="8dp"
+                        android:background="@color/dash_daily"
+                        android:orientation="vertical"
+                        android:padding="8dp">
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+
+                        <TextView
+                            android:id="@+id/dashboard_daily"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColor"
+                            android:textSize="24sp"
+                            tools:text="08:00" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/daily_average_string"
+                            android:textAlignment="center"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp"
+                            android:paddingVertical="4dp" />
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/past_header"

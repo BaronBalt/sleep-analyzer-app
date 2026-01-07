@@ -22,8 +22,15 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import hu.vmiklos.plees_tracker.R
+import hu.vmiklos.plees_tracker.data.local.AppDatabase
+import hu.vmiklos.plees_tracker.data.repository.PreferencesRepository
+import hu.vmiklos.plees_tracker.data.repository.SleepRepository
 import hu.vmiklos.plees_tracker.domain.model.Sleep
+import hu.vmiklos.plees_tracker.domain.usecase.ImportExportUseCases
+import hu.vmiklos.plees_tracker.domain.usecase.StatsUseCases
 import hu.vmiklos.plees_tracker.ui.main.MainViewModel
+import hu.vmiklos.plees_tracker.ui.main.MainViewModelFactory
+import hu.vmiklos.plees_tracker.ui.util.TimeFormatter
 import hu.vmiklos.plees_tracker.ui.util.WindowInsetsUtil.handleWindowInsets
 import java.util.Calendar
 import java.util.Date
@@ -68,9 +75,7 @@ class GraphsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_graphs)
-
         handleWindowInsets(this)
-
         title = getString(R.string.graphs)
 
         // Show a back button.
@@ -79,9 +84,25 @@ class GraphsActivity : AppCompatActivity() {
         selectedChartId = savedInstanceState?.getInt(KEY_SELECTED_CHART) ?: R.id.graph_deficit
 
         preferences = PreferenceManager.getDefaultSharedPreferences(application)
+        val preferencesRepository = PreferencesRepository(preferences)
+        val database = AppDatabase.getDatabase(application)
+        val sleepRepository = SleepRepository(database.sleepDao(), preferencesRepository)
+        val statsUseCases = StatsUseCases()
+        val importExportUseCases = ImportExportUseCases(
+            sleepRepository = sleepRepository,
+            preferencesRepository = preferencesRepository
+        )
+        val formatter = TimeFormatter
 
-        viewModel = ViewModelProvider.AndroidViewModelFactory(application)
-            .create(MainViewModel::class.java)
+        val factory = MainViewModelFactory(
+            sleepRepository = sleepRepository,
+            preferencesRepository = preferencesRepository,
+            statsUseCases = statsUseCases,
+            importExportUseCases = importExportUseCases,
+            formatter = formatter,
+            application = application
+        )
+        viewModel = ViewModelProvider(this, factory)[MainViewModel::class.java]
 
         // The chart is reused for all different graphs. Below are settings which are the same
         // across all possible graphs.
