@@ -67,7 +67,7 @@ class MainViewModel(
             val startTime = preferencesRepository.getStartTimestamp()
             val stopTime = System.currentTimeMillis()
 
-            if (startTime > 0) {
+            if (startTime != 0L) {
                 // 1. Save to DB
                 sleepRepository.storeSleep(startTime, stopTime)
 

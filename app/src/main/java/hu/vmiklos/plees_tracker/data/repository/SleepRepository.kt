@@ -35,7 +35,7 @@ class SleepRepository(
         sleepDao.insert(sleep)
 
         // Clear the start timestamp from preferences
-        preferencesRepository.setStartTimestamp(null)
+        preferencesRepository.setStartTimestamp(0L)
     }
 
     suspend fun getSleepById(sid: Int): Sleep = sleepDao.getById(sid)
@@ -74,7 +74,7 @@ class SleepRepository(
 
             sleepDao.insert(sleep)
 
-            preferencesRepository.setStartTimestamp(null)
+            preferencesRepository.setStartTimestamp(0L)
         }
     }
 

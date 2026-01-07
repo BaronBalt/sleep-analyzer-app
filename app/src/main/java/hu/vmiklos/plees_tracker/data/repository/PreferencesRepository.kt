@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import hu.vmiklos.plees_tracker.data.local.liveDataBoolean
+import hu.vmiklos.plees_tracker.data.local.liveDataLong
 import hu.vmiklos.plees_tracker.domain.model.StatFunction
 
 class PreferencesRepository(private val preferences: SharedPreferences) {
@@ -26,13 +27,16 @@ class PreferencesRepository(private val preferences: SharedPreferences) {
     }
 
     // Logic for the 'active' tracking session
-    fun getStartTimestamp(): Long = preferences.getLong("start", 0)
+    fun getStartTimestamp(): Long = preferences.getLong("start", 0L)
 
-    fun setStartTimestamp(timestamp: Long?) {
+    fun setStartTimestamp(timestamp: Long) {
         preferences.edit {
-            if (timestamp != null) putLong("start", timestamp) else remove("start")
+            putLong("start", timestamp)
         }
     }
+
+    fun startTimeStampLive(): LiveData<Long> =
+        preferences.liveDataLong("start", 0L)
 
     fun getStartDelay(): Int {
         val startDelayStr = preferences.getString("sleep_start_delta", "0") ?: "0"

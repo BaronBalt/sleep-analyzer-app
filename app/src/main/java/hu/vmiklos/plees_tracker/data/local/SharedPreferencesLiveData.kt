@@ -38,6 +38,9 @@ private class SharedPreferenceLiveData<T>(
 fun SharedPreferences.liveData(key: String, default: String?): LiveData<String?> =
     SharedPreferenceLiveData(this, key) { getString(key, default) }
 
+fun SharedPreferences.liveDataLong(key: String, default: Long): LiveData<Long> =
+    SharedPreferenceLiveData(this, key) { getLong(key, default) }
+
 fun SharedPreferences.liveDataBoolean(key: String, default: Boolean): LiveData<Boolean?> =
     SharedPreferenceLiveData(this, key) { getBoolean(key, default) }
 

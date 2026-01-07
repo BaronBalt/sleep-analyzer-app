@@ -69,6 +69,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import androidx.core.net.toUri
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -157,22 +158,18 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
 
         val database = AppDatabase.getDatabase(applicationContext)
 
-        // 1. Stats UseCase (Independent)
         val statsUseCases = StatsUseCases()
 
-        // 2. SleepRepository (Does not need UseCase in constructor anymore)
         val sleepRepository = SleepRepository(
             database.sleepDao(),
             preferencesRepository
         )
 
-        // 3. ImportExportUseCases (Needs Repository)
         val importExportUseCases = ImportExportUseCases(
             sleepRepository = sleepRepository,
             preferencesRepository = preferencesRepository
         )
 
-        // 4. Factory (Pass the UseCase here for the ViewModel to use)
         val factory = MainViewModelFactory(
             sleepRepository = sleepRepository,
             preferencesRepository = preferencesRepository,
@@ -224,9 +221,7 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
             }
         }
 
-        preferences.liveData("start_timestamp", 0L.toString()).observe(
-            this
-        ) {
+        preferencesRepository.startTimeStampLive().observe(this) {
             updateView()
         }
 
@@ -524,7 +519,7 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
             }
             R.id.documentation -> {
                 val website = getString(R.string.website_link)
-                open(Uri.parse(website))
+                open(website.toUri())
                 return true
             }
             R.id.settings -> {
