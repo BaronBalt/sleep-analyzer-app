@@ -7,8 +7,8 @@ original list of features, installation, and usage information.
 
 ## Technical changes
 
-- Converted code to use MVVM-pattern. 
-- Completely removed the DataModel singleton and made many new files to handle what DataModel did before.
+- Converted code to use MVVM-pattern
+- Completely removed the DataModel singleton and made many new files to handle what DataModel did before
 - All ViewModels now have factorys and use dependency injection
 
 ## Added feature(s)
