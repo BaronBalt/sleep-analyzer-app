@@ -9,4 +9,5 @@ original list of features, installation, and usage information.
 
 ### Analysis of sleeping environments sound level
 Measures the dB level from the microphone and determines if the audio level is suitable for sleeping
-<img width="567" height="1248" alt="image" src="https://github.com/user-attachments/assets/da859100-d17a-4fe2-8ae6-94162c7e67f3" />
+<img width="358" height="789" alt="image" src="https://github.com/user-attachments/assets/aa004a8f-dfc9-4f99-af41-5c5c66985b56" />
+
