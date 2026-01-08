@@ -1,6 +1,6 @@
 # Sleep Analyzer App
 
-This is a fork of plees-tracker that attempts to modernize it and add further features
+This is a fork of [plees-tracker](https://github.com/vmiklos/plees-tracker) that attempts to modernize it and add further features
 
 Check out the [user guide](https://vmiklos.hu/plees-tracker/) for plees-tracker for the 
 original list of features, installation, and usage information.
