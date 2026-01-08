@@ -1,6 +1,5 @@
 package hu.vmiklos.plees_tracker.ui.sleep
 
-import android.content.ContentResolver
 import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
@@ -9,7 +8,6 @@ import hu.vmiklos.plees_tracker.R
 import hu.vmiklos.plees_tracker.data.repository.PreferencesRepository
 import hu.vmiklos.plees_tracker.data.repository.SleepRepository
 import hu.vmiklos.plees_tracker.domain.model.Sleep
-import hu.vmiklos.plees_tracker.ui.util.TimeFormatter
 import kotlinx.coroutines.launch
 
 /**
@@ -17,14 +15,10 @@ import kotlinx.coroutines.launch
  */
 class SleepViewModel(
     private val sleepRepository: SleepRepository,
-    private val preferencesRepository: PreferencesRepository,
-    private val formatter: TimeFormatter
+    private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
 
-    // Helper to get sleep data for the UI
-    suspend fun getSleep(sid: Int): Sleep {
-        return sleepRepository.getSleepById(sid)
-    }
+    suspend fun getSleep(sid: Int): Sleep = sleepRepository.getSleepById(sid)
 
     fun isCompactView() = preferencesRepository.compactView()
 
@@ -37,7 +31,6 @@ class SleepViewModel(
         }
     }
 
-    // Move Dialog logic to Activity, only keep the save logic here
     fun onDateTimeChanged(sleep: Sleep, context: Context) {
         if (sleep.start < sleep.stop) {
             updateSleep(sleep)

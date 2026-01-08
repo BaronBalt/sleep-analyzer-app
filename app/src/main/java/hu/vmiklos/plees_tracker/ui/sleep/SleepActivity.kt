@@ -46,15 +46,12 @@ class SleepActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Setup Repositories (Just like MainActivity)
         val preferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val preferencesRepository = PreferencesRepository(preferences)
         val database = AppDatabase.getDatabase(applicationContext)
         val sleepRepository = SleepRepository(database.sleepDao(), preferencesRepository)
-        val formatter = TimeFormatter // Assuming object or singleton
 
-        // Use a Factory!
-        val factory = SleepViewModelFactory(sleepRepository, preferencesRepository, formatter)
+        val factory = SleepViewModelFactory(sleepRepository, preferencesRepository)
         viewModel = ViewModelProvider(this, factory)[SleepViewModel::class.java]
 
         setContentView(R.layout.activity_sleep)

@@ -235,5 +235,11 @@
     <string name="default_reminder_message">Time for your reminder.</string>
     <string name="notification_channel_description">Channel for bedtime and wakeup reminders</string>
     <string name="bedtime_toast">Reminders set for bedtime and wakeup</string>
+    <string name="audio_title">Environmental Sound Analyzer</string>
+    <string name="audio">Sound Analyzer</string>
+    <string name="current_noise_level">Current Noise Level</string>
+    <string name="sleep_status">Sleep Status</string>
+    <string name="noise_history">Noise history</string>
+    <string name="audio_analysis">Sound Analysis</string>
 
 </resources>

@@ -70,6 +70,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import androidx.core.net.toUri
+import hu.vmiklos.plees_tracker.ui.audio.AudioActivity
 
 /**
  * The activity is the primary UI of the app: allows starting and stopping the
@@ -529,6 +530,10 @@ class MainActivity(): AppCompatActivity(), View.OnClickListener {
             }
             R.id.graphs -> {
                 startActivity(Intent(this, GraphsActivity::class.java))
+                return true
+            }
+            R.id.audio -> {
+                startActivity(Intent(this, AudioActivity::class.java))
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
