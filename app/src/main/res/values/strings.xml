@@ -239,7 +239,10 @@
     <string name="audio">Sound Analyzer</string>
     <string name="current_noise_level">Current Noise Level</string>
     <string name="sleep_status">Sleep Status</string>
-    <string name="noise_history">Noise history</string>
-    <string name="audio_analysis">Sound Analysis</string>
+    <string name="start_recording">Start Recording</string>
+    <string name="mic_permission_required">Microphone permission required</string>
+    <string name="sleep_friendly">Sleep Friendly</string>
+    <string name="not_sleep_friendly">Not Sleep Friendly</string>
+    <string name="audio_privacy">🔒 Your microphone is only used locally to measure noise. No audio is recorded or uploaded.</string>
 
 </resources>

@@ -9,26 +9,6 @@
     android:background="?android:colorBackground"
     tools:context=".ui.audio.AudioActivity">
 
-    <!-- App Bar -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:colorBackground"
-        android:elevation="4dp">
-
-        <TextView
-            android:id="@+id/audio_screen_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/audio_analysis"
-            android:textColor="@color/textColor"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_vertical|start"
-            android:padding="16dp"/>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <!-- Scrollable Content -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -61,7 +41,6 @@
                     android:id="@+id/current_db_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0 dB"
                     android:textSize="36sp"
                     android:textStyle="bold"
                     android:textColor="@color/textColor"
@@ -112,7 +91,7 @@
                     android:paddingTop="4dp"/>
             </LinearLayout>
 
-            <!-- Noise History Graph Placeholder -->
+            <!-- Start/stop recording -->
             <LinearLayout
                 android:id="@+id/noise_history_card"
                 android:layout_width="0dp"
@@ -126,23 +105,35 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <TextView
-                    android:id="@+id/noise_history_label"
+                    android:id="@+id/start_recording_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/noise_history"
+                    android:text="@string/start_recording"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/textColor"
                     android:layout_gravity="center"/>
 
-                <View
-                    android:id="@+id/noise_graph_placeholder"
+                <ToggleButton
+                    android:id="@+id/start_recording_button"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:background="@color/graph_placeholder"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_height="match_parent"/>
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/mic_privacy_note"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/audio_privacy"
+                android:textSize="12sp"
+                android:textColor="@color/textColor"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/noise_history_card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
